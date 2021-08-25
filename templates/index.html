@@ -1,0 +1,192 @@
+{% block styles %}
+    <!-- Styles -->
+
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/animate.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap-submenu.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap-select.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/font-awesome/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/flaticon/font/flaticon.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/linearicons/style.css')}}">
+    <link rel="stylesheet" type="text/css"  href="{{url_for('static', filename='css/jquery.mCustomScrollbar.css')}}">
+    <link rel="stylesheet" type="text/css"  href="{{url_for('static', filename='css/dropzone.css')}}">
+    <link rel="stylesheet" type="text/css"  href="{{url_for('static', filename='css/slick.css')}}">
+
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="{{url_for('static', filename='css/skins/default.css')}}">
+
+    <!-- Favicon icon -->
+
+
+    <!-- Google fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,300,700">
+{% endblock %}
+
+{% block content %}
+<header class="main-header header-transparent sticky-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand logo" href="index.html">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item sp">
+                        <a class="nav-link link-color" href="{{ url_for('auth.index') }}" > Home </a>
+                    </li>
+                    <li class="nav-item sp">
+                        <a class="nav-link link-color" href="{{ url_for('auth.resourceList') }}" > Resource </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            My Account
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ url_for('auth.login') }}">Login</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.signup') }}">Register</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item sp">
+                        <a href="{{ url_for('auth.publish') }}" class="nav-link link-color"><i class="fa fa-plus"></i> Publish</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- Main header end -->
+
+
+
+<!-- Banner start -->
+<div class="banner" id="banner">
+    <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100 h-100" src="../static/img/banner/banner-2.jpg" alt="banner">
+
+                <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
+                    <div class="carousel-content container">
+                        <div class="text-center">
+                            <h3 class="text-uppercase">Welcome to BookIt!</h3>
+                            <p>
+                                Search for any type of resource you want
+                            </p>
+                                     <p class="lead"> <br>
+                    <form class="form-inline my-2 my-lg-0" role="search" method="POST"  target="_blank">
+                    <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="Enter any keywords">
+                    <span class="input-group-btn">
+                    <button type="submit" class="btn btn-secondary">Find</button>
+                    </span>
+                    </div><!-- /input-group -->
+                    </form></p>
+
+                                </div>
+                            </div>
+                        <style>
+                          .input-group{
+                        	margin: auto;
+
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                        }
+                        </style>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container search-options-btn-area">
+        <a class="search-options-btn d-lg-none d-xl-none">
+            <div class="search-options d-none d-xl-block d-lg-block">Search Options</div>
+            <div class="icon"><i class="fa fa-chevron-up"></i></div>
+        </a>
+    </div>
+</div>
+<!-- Banner end -->
+
+<!-- Search Section start -->
+<div class="search-section search-area pb-hediin-12 bg-grea animated fadeInDown" id="search-style-1">
+    <div class="container">
+        <div class="search-section-area">
+            <div class="search-area-inner">
+                <div class="search-contents">
+                    <form method="GET">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <select class="selectpicker search-fields" name="any-status">
+                                        <option>Any Status</option>
+                                        <option>For Rent</option>
+                                        <option>For Sale</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <select class="selectpicker search-fields" name="bedrooms">
+                                        <option>Bedrooms</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <select class="selectpicker search-fields" name="location">
+                                        <option>location</option>
+                                        <option>United States</option>
+                                        <option>American Samoa</option>
+                                        <option>Belgium</option>
+                                        <option>Canada</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <button class="search-button">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search Section end -->
+<script src="../static/js/jquery-2.2.0.min.js"></script>
+<script src="../static/js/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script  src="../static/js/bootstrap-submenu.js"></script>
+<script  src="../static/js/rangeslider.js"></script>
+<script  src="../static/js/jquery.mb.YTPlayer.js"></script>
+<script  src="../static/js/bootstrap-select.min.js"></script>
+<script  src="../static/js/jquery.easing.1.3.js"></script>
+<script  src="../static/js/jquery.scrollUp.js"></script>
+<script  src="../static/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+
+<script  src="../static/js/slick.min.js"></script>
+<script  src="../static/js/jquery.filterizr.js"></script>
+<script  src="../static/js/jquery.countdown.js"></script>
+
+
+
+{% endblock %}

@@ -1,0 +1,139 @@
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}"/>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Header -->
+	<header class="header">
+	    <nav class="navbar navbar-white navbar-overlay">
+            <a class="logo-link" href="index.html">
+                
+		    </a>
+		    <div class="navbar__menu">
+		        <button class="hamburger" type="button">
+				    <span></span>
+					<span></span>
+				</button>
+			    <ul class="nav">
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.index') }}"><span data-hover="Home">Home</span></a></li>
+				    <li class="nav__item is-current"><a class="nav__link" href="{{ url_for('auth.resourceList') }}"><span data-hover="Resource">Resource</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.publish') }}"><span data-hover="Publish">Publish</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.dashboard') }}"><span data-hover="My account">My account</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="contact.html"><span data-hover="Contact Us">Contact Us</span></a></li>
+			    </ul>
+	        </div>
+	    </nav>
+	</header>
+	<!-- /Header -->
+
+
+	<!-- Content -->
+	<main class="main">
+        <!-- Intro -->
+		<section class="intro">
+		    <div class="intro__bg-wrap">
+		        <div class="overlay intro__bg js-parallax js-scale-down"></div>
+                <style>
+                    .intro__bg{
+                        background-image: url("../static/restraunt_1.jpg");
+                    }
+                </style>
+			</div>
+	        <div class="container intro__container">
+		        <div class="row h-100 align-items-center align-items-center justify-content-center">
+			        <div class="col-12 col-xl-8 text-center">
+				        <span class="title title--overhead text-white js-lines">{{ provider.username }}</span>
+		                <h1 class="title title--display-1 js-lines">{{ resource.resource_name }}</h1>
+				    </div>
+                </div>
+		    </div>
+
+
+	    </section>
+	    <!-- /Intro -->
+
+		<!-- Room base info -->
+		<div class="bottom-panel bottom-panelRoom">
+		    <div class="bottom-panel__wrap">
+			    <div class="row h-100 align-items-center">
+				    <div class="col-12 col-md-12 col-xl-8">
+					    <div class="row room-details">
+                            <div class="col-4 room-details__item slash"><i class="icon-map-pin"></i>{{ resource.location }}</div>
+				            <div class="col-4 room-details__item slash"><i class="icon-bookmark:before"></i>Type: {{ resource.resource_type }}</div>
+				            <div class="col-4 room-details__item"><i class="icon-bookmark:before"></i>Likes: {{ likes }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	    <!-- /Room base info -->
+
+		<!-- Content -->
+	    <section id="content" class="container">
+		    <div class="row sticky-parent">
+			    <div class="col-md-12 col-xl-8 order-2 order-xl-1 mt-4 mt-sm-5">
+				    <!-- Description room -->
+				    <h3 class="title title--h3">Description</h3>
+					<p>{{ resource.description }}</p>
+
+
+
+					<!-- Rating & Review -->
+
+					<div class="row">
+
+
+					</div>
+
+				</div>
+
+				<!-- Sidebar Booking -->
+				<div class="col-md-12 col-xl-4 order-1 order-xl-2">
+				    <div class="sidebar-booking sticky-column">
+				        <div class="sidebar-booking__priceWrap" style="background-color: #2a2a2a;">
+						    <div class="priceWrap-title">Provider</div>
+					        <div class="priceWrap-price">{{ provider.username }}</div>
+                            {{ provider.email }} //
+                            {{ provider.phoneNumber }}
+					    </div>
+
+
+				        <form class="sidebar-booking__wrap" method="POST">
+					        <!-- Dates -->
+						    <div class="form-group">
+						        <label class="label" for="check-in">Dates</label>
+	                            <div class="form">
+		                            <input type="date" class="inputText readonly js-datepicker" id="date" name="date" placeholder="Select date" required="required" autocomplete="off">
+		                        </div>
+						    </div>
+
+						    <div class="row">
+							    <div class="col-12 mt-1">
+				                    <button type="submit" class="btn btn__medium w-100" style="background-color: #ff214f;">Make a reservation</button>
+				                </div>
+
+
+
+						    </div>
+					    </form>
+					</div>
+				</div>
+				<!-- /Sidebar Booking -->
+			</div>
+		</section>
+		<!-- /Content -->
+
+
+	</main>
+	<!-- /Content -->
+
+
+
+	<!-- JavaScripts -->
+	<script src="../static/js/jquery-3.4.1.min.js"></script>
+	<script src="../static/js/plugins.min.js"></script>
+    <script src="../static/js/common.js"></script>
+
+
+{% endblock %}

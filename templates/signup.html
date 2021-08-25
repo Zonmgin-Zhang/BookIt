@@ -1,0 +1,54 @@
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{{url_for('static', filename='signin.css')}}">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}"/>
+{% endblock %}
+
+{% block content %}
+
+    <header class="header">
+	    <nav class="navbar fixed-top">
+            <a class="logo-link" href="index.html">
+
+		    </a>
+		    <div class="navbar__menu">
+		        <button class="hamburger" type="button">
+				    <span></span>
+					<span></span>
+				</button>
+			    <ul class="nav">
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.index') }}"><span data-hover="Home">Home</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.resourceList') }}"><span data-hover="Resource">Resources</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.publish') }}"><span data-hover="Publish">Publish</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="blog.html"><span data-hover="Blog">Blog</span></a></li>
+
+			    </ul>
+	        </div>
+		    <div class="navbar__btn">
+
+		    </div>
+	    </nav>
+	</header>
+
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+  <form class="form-signin" method="POST" action="/signup">
+    <h2 class="form-signin-heading">Sign Up</h2>
+    {{ form.hidden_tag() }}
+    {{ wtf.form_field(form.username) }}
+    {{ wtf.form_field(form.password) }}
+    {{ wtf.form_field(form.password2) }}
+      {{ wtf.form_field(form.email) }}
+      {{ wtf.form_field(form.phoneNumber) }}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+  </form>
+
+</div> <!-- /container -->
+{% endblock %}

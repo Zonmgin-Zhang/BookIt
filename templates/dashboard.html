@@ -1,0 +1,145 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block styles %}
+{{super()}}
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/animate.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap-submenu.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap-select.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/font-awesome/css/font-awesome.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/flaticon/font/flaticon.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/linearicons/style.css')}}">
+  <link rel="stylesheet" type="text/css"  href="{{url_for('static', filename='css/jquery.mCustomScrollbar.css')}}">
+  <link rel="stylesheet" type="text/css"  href="{{url_for('static', filename='css/dropzone.css')}}">
+  <link rel="stylesheet" type="text/css"  href="{{url_for('static', filename='css/slick.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" type="text/css" id="style_sheet" href="{{url_for('static', filename='css/skins/default.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" type="text/css" id="style_sheet" href="{{url_for('static', filename='css/skins/default.css')}}">
+</head>
+<!-- <link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}"> -->
+{% endblock %}
+
+{% block content %}
+<header class="main-header header-2 fixed-header">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand logo pad-0" href="/" style="padding-top: 20px; font-size: 2rem; font-weight: 600;">BOOKIT</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="navbar-buttons ml-auto d-none d-xl-block d-lg-block">
+            <ul>
+              <li><form class="navbar-form navbar-right" style="margin-top: 25px;">
+                <input type="text" class="form-control" placeholder="Search...">
+              </form></li>
+              <li><a class="btn btn-theme btn-md" href="{{ url_for('auth.publish') }}">Publish</a></li>
+              <li><a class="btn btn-theme btn-md" style="background-color: white; color: #ff214f !important;" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+  </div>
+</header>
+
+<div class="dashboard">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-12 col-sm-12 col-pad">
+        <div class="dashboard-nav d-none d-xl-block d-lg-block">
+          <div class="dashboard-inner" style="margin-top: 9rem;">
+            <ul>
+              <li class="nav-item dropdown active"><a href="#">Personal information</a></li>
+              <li class="active"><a href="{{ url_for('auth.My_resource') }}" >My resource</a></li>
+              <li class="active"><a href="{{ url_for('auth.My_order') }}" >My Order</a></li>
+              <li class="active"><a href="{{ url_for('auth.wishlist') }}">Wishlist</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-12 col-sm-12 col-pad">
+        <div class="content-area5" style="margin-top: 10rem;">
+          <div class="dashboard-content">
+            <div class="dashboard-header clearfix">
+              <div class="row col-sm-12 col-md-6"><h4>Welcome, {{ name }}</h4></div>
+            </div>
+            <div class="dashboard-list">
+              <h3 class="heading">Personal information</h3>
+              <div class="dashboard-message contact-2 bdr clearfix">
+                <p style="font-size:12pt;"> You have <b>{{ hours_remain }}</b> hours remaining for this month.</p>
+                <div class="col-lg-6 col-md-6">
+                  <div class="form-group email">
+                    <label class="control-label">Gender</label>
+                    <select class="form-select" id="gender_edit" name="gender" style="height: 40px;">
+                      <option value="male">male</option>
+                      <option value="female">female</option>
+                      <option value="other">other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                  <div class="form-group email">
+                    <label class="control-label">Birthday</label>
+                    <input class="form-control" id="birthday_edit" name="birthday" type="date" style="line-height: 20px;">
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                  <div class="form-group email">
+                    <label class="control-label">First name</label>
+                    <input class="form-control" id="fname_edit" name="birthday" type="text" >
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                  <div class="form-group email">
+                    <label class="control-label">Last name</label>
+                    <input class="form-control" id="lname_edit" name="birthday" type="text" >
+                  </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group message">
+                    <label>Describe yourself briefly</label>
+                    <textarea class="form-control" name="message" placeholder="Personal info" >{{personal_description}}</textarea>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="send-btn">
+                    <button type="submit" class="btn btn-md button-theme" nclick="submit_info()" id="submit_button">Save information</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function submit_info(){
+    location.reload(true);
+  }
+</script>
+<script src="{{url_for('static', filename='js/bootstrap-select.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery-2.2.0.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap-submenu.js')}}"></script>
+<script src="{{url_for('static', filename='js/rangeslider.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.mb.YTPlayer.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.easing.1.3.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.scrollUp.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/slick.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.filterizr.js')}}"></script>
+
+<script src="{{url_for('static', filename='js/jquery.countdown.js')}}"></script>
+
+
+
+{% endblock %}

@@ -1,0 +1,111 @@
+# -*- coding:utf-8 -*-
+from models import *
+
+
+def recommend(order, resource, wishlist, uid):
+    resource.execute("Select recommend from user where userId='" + uid + "'")
+    resource_list = resource.fetchall()
+
+    target_num = 5  # 默认推荐数目
+    if len(resource_list) < target_num:  # 如果查询结果少于5，则为查询出来的结果个数
+        target_num = len(resource_list)
+    num = 0
+
+    table_interest = find_interest(order, resource, wishlist, uid)
+    interest_type = table_interest[0]
+    interest_location = table_interest[1]
+
+    table_id = []
+    for i in range(len(interest_type)):
+        for j in range(len(resource_list)):
+            resource_id = resource_list[j][0]
+            resource_type = resource_list[j][2]
+            if interest_type[i] == resource_type:
+                table_id.append(resource_id)
+                num += 1
+                if num == target_num:
+                    return table_id
+
+    for i in range(len(interest_location)):
+        for j in range(len(resource_list)):
+            resource_id = resource_list[j][0]
+            resource_location = resource_list[j][3]
+            if interest_location[i] == resource_location:
+                table_id.append(resource_id)
+                num += 1
+                if num == target_num:
+                    return table_id
+
+    if num < target_num:
+        for i in range(len(resource_list)):
+            resource_id = resource_list[i][0]
+            table_id.append(resource_id)
+            num += 1
+            if num == target_num:
+                return table_id
+
+    return table_id
+
+
+def add_type(table_type, resource_type):
+    if resource_type is None:
+        return table_type
+    type_num = len(table_type)
+    for i in range(type_num):
+        if table_type[i] == resource_type:
+            return table_type
+    table_type.append(resource_type)
+    return table_type
+
+
+def add_location(table_location, location):
+    if location is None:
+        return table_location
+    location_num = len(table_location)
+    for i in range(location_num):
+        if table_location[i] == location:
+            return table_location
+    table_location.append(location)
+    return table_location
+
+
+def find_resource(resource, resource_id):
+    empty = []
+    for i in range(len(resource)):
+        if resource[i][0] == resource_id:
+            return resource[i]
+    return empty
+
+
+def find_interest(order, resource, wishlist, uid):
+    order.execute("Select interest from user where userId='" + uid + "'")
+
+    table_type = []
+    table_location = []
+
+    order_list = order.fetchall()
+    order_num = len(order_list)
+
+    for i in range(order_num):
+        user_id = order_list[i][0]
+        resource_id = order_list[i][2]
+
+        if user_id == uid:
+            target_resource = find_resource(resource, resource_id)
+            table_type = add_type(table_type, target_resource[2])
+            table_location = add_location(table_location, target_resource[3])
+
+    wish_list = wishlist.fetchall()
+    wish_num = len(wish_list)
+
+    for i in range(wish_num):
+        user_id = wish_list[i][0]
+        resource_id = wish_list[i][1]
+
+        if user_id == uid:
+            target_resource = find_resource(resource, resource_id)
+            table_type = add_type(table_type, target_resource[2])
+            table_location = add_location(table_location, target_resource[3])
+
+    table_interest = [table_type, table_location]
+    return table_interest

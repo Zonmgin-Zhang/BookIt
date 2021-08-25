@@ -1,0 +1,136 @@
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}"/>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Header -->
+	<header class="header">
+	    <nav class="navbar navbar-white navbar-overlay">
+            <a class="logo-link" href="index.html">
+
+		    </a>
+		    <div class="navbar__menu">
+		        <button class="hamburger" type="button">
+				    <span></span>
+					<span></span>
+				</button>
+			     <ul class="nav">
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth.index') }}"><span data-hover="Home">Home</span></a></li>
+				    <li class="nav__item is-current"><a class="nav__link" href="{{ url_for('auth4.resourceList') }}"><span data-hover="Resource">Resource</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth1.publish') }}"><span data-hover="Publish">Publish</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="{{ url_for('auth3.dashboard') }}"><span data-hover="My account">My account</span></a></li>
+				    <li class="nav__item"><a class="nav__link" href="contact.html"><span data-hover="Contact Us">Contact Us</span></a></li>
+			    </ul>
+	        </div>
+
+	    </nav>
+	</header>
+	<!-- /Header -->
+
+
+	<!-- Content -->
+	<main class="main">
+        <!-- Intro -->
+			<section class="intro">
+		    <div class="intro__bg-wrap">
+		        <div class="overlay intro__bg js-parallax js-scale-down"></div>
+                <style>
+                    .intro__bg{
+                        background-image: url("../static/restraunt_3.jpg");
+                    }
+                </style>
+			</div>
+	        <div class="container intro__container">
+		        <div class="row h-100 align-items-center align-items-center justify-content-center">
+			        <div class="col-12 col-xl-8 text-center">
+		                <h1 class="title title--display-1 js-lines">{{ order.order_id }}</h1>
+				    </div>
+                </div>
+		    </div>
+
+
+	    </section>
+	    <!-- /Intro -->
+
+	    <!-- /Order info -->
+
+			</div>
+		</section>
+
+        <section id="content" class="container">
+		    <div class="row sticky-parent">
+			    <div class="col-md-12 col-xl-8 order-2 order-xl-1 mt-4 mt-sm-5">
+				    <!-- Order ID -->
+				    <h3 class="title title--h3">Order-ID</h3>
+					<p>{{ order.order_id  }}</p>
+
+				</div>
+				<!-- /Sidebar Booking -->
+			</div>
+		</section>
+
+        <section id="content" class="container">
+		    <div class="row sticky-parent">
+			    <div class="col-md-12 col-xl-8 order-2 order-xl-1 mt-4 mt-sm-5">
+				    <!-- Order-ProviderID -->
+				    <h3 class="title title--h3">Order-ProviderID</h3>
+					<p>{{ order.provider_id }}</p>
+
+				</div>
+				<!-- /Sidebar Booking -->
+			</div>
+
+		</section>
+                <section id="content" class="container">
+		    <div class="row sticky-parent">
+			    <div class="col-md-12 col-xl-8 order-2 order-xl-1 mt-4 mt-sm-5">
+				    <!-- Description room -->
+				    <h3 class="title title--h3">Order-ConsumerID</h3>
+					<p>{{ order.consumer_id }}</p>
+
+				</div>
+				<!-- /Sidebar Booking -->
+			</div>
+		</section>
+
+		<!-- /Content -->
+        <section id="content" class="container">
+		    <div class="row sticky-parent">
+			    <div class="col-md-12 col-xl-8 order-2 order-xl-1 mt-4 mt-sm-5">
+				    <!-- Order-Date -->
+				    <h3 class="title title--h3">Order-Date</h3>
+					<p>{{ order.date }}</p>
+
+				</div>
+				<!-- /Sidebar Booking -->
+			</div>
+		</section>
+
+        <section id="content" class="container">
+		    <div class="row sticky-parent">
+			    <div class="col-md-12 col-xl-8 order-2 order-xl-1 mt-4 mt-sm-5">
+				    <!-- Order-StartTime -->
+				    <h3 class="title title--h3">Order-StartTime</h3>
+					<p>{{ order.startTime }}:00</p>
+
+				</div>
+				<!-- /Sidebar Booking -->
+			</div>
+		</section>
+
+
+	</main>
+	<!-- /Content -->
+
+
+
+
+
+	<!-- JavaScripts -->
+	<script src="../static/js/jquery-3.4.1.min.js"></script>
+	<script src="../static/js/plugins.min.js"></script>
+    <script src="../static/js/common.js"></script>
+
+
+{% endblock %}

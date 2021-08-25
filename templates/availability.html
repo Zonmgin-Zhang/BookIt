@@ -1,0 +1,132 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='availability.css')}}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">BookIt</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url_for('auth.dashboard') }}">My Account</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+      </ul>
+      <form class="navbar-form navbar-right">
+        <input type="text" class="form-control" placeholder="Search...">
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="main">
+      <div class="row">
+        <div>
+          <h3> Reserve {{reosurce_name}} </h3>
+          <table>
+            <tr>
+              <th>Time slot</th>
+              {% for day in date_list %}
+              <th>{{day[0]}} {{day[1]}}</th>
+              {%endfor%}
+            </tr>
+
+            {% for time_slot in time_slot_list %}
+            <tr>
+              <td style="background-color: beige;">{{time_slot[1]}}</td>
+              {% for day in date_list %}
+                  {% if day[0] in order and time_slot[0] in order[day[0]] %}
+                      <td style="background-color:#E3170D;" class="time_slot">{{Occupied}}</td>
+                  {% elif day[2] in available and time_slot[0] in available[day[2]] %}
+                    <td style="background-color:#4CAF50;"onclick="yellow(event)" class="time_slot">{{day[0]}} {{time_slot[1]}}</td>
+                  {% else %}
+                      <td style="background-color:#808080;" class="time_slot"></td>
+                  {% endif %}
+              {%endfor%}
+            </tr>
+            {%endfor%}
+
+          </table>
+          <div style="width: 100%; margin-top:35px;">
+
+            <button style="margin-left: 15%; margin-right: 0; background-color: cadetblue; border-radius: 5px; width:30%; height:40px; color: white; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" onclick="sv_slots(event)"> confirm</button>
+
+            <button style="margin-left: 10%; background-color: cadetblue; border-radius: 5px; width:30%; height:40px; color: white; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" onclick="cncl_slots(event)"> cancel </button>
+            <!--For debug, delete next line in demo-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleWishlist(evt){
+        tablinks = document.getElementsByClassName("btn");
+        if (evt.currentTarget.className =="btn active"){
+          evt.currentTarget.className = "btn";
+        }
+        else{
+          evt.currentTarget.className += " active";
+        }
+      }      
+      function yellow(evt){
+      	if (evt.currentTarget.style.backgroundColor=='rgb(224, 203, 80)'){ // yellow
+      		evt.currentTarget.style.backgroundColor='#4CAF50'; //green
+        }else{
+        	evt.currentTarget.style.backgroundColor='rgb(224, 203, 80)';
+        }
+      }
+
+      var chosen_slots=[];
+
+      function cncl_slots(evt){
+        all_slots = document.getElementsByClassName("time_slot");
+        for (i = 0; i < all_slots.length; i++) {
+          all_slots[i].style.backgroundColor='#4CAF50';
+        }
+        chosen_slots=[];
+        document.getElementById("demo").innerHTML = chosen_slots;
+      }
+      function sv_slots(evt){
+        var all_slots;
+        chosen_slots=[];
+        all_slots = document.getElementsByClassName("time_slot");
+        for (i = 0; i < all_slots.length; i++) {
+          if (all_slots[i].style.backgroundColor=='rgb(224, 203, 80)'){
+              chosen_slots.push(all_slots[i].innerHTML);
+              all_slots[i].style.backgroundColor='rgb(227, 23, 13)'
+          }
+        }
+
+
+        $.ajax({
+            url: "{{ url_for('auth.availability',resource_id=resource_id, date=date) }}",
+            data: JSON.stringify(chosen_slots),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            success: function(data) {
+
+            }
+        });
+
+      }
+    </script>
+
+{% endblock %}
